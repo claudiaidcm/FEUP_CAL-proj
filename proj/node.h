@@ -1,25 +1,39 @@
-#pragma once
+#ifndef NODE_H_
+#define NODE_H_
 
 #include <cmath>
 #include <string>
+#include <ostream>
 
-#define earthRadiusKm 6371.0
+using namespace std;
+
+#define PI 3.1415926536
+#define Earth_Radius 6371.0
 
 class Node {
 protected:
-	double lat, lon;	//radian values
-	int id;
+	string ID;
+	double lat, lon; //id, latitude and longitude respectively
 public:
 	Node();
-	Node(int id);
-	Node(int id, double lat, double lon);
-	double getLat();
-	double getLon();
-	int getId();
+	Node(string ID);
+	Node(string ID, double lat, double lon);
 	Node & setLat(double lat);
 	Node & setLon(double lon);
-	Node & setId(int id);
+	Node & setID(string ID);
+	double getLat();
+	double getLon();
+	string getID();
 
-	//Returns the distance between two points on the Earth.
-	double distance(Node end);
+	double distance(Node end); //returns the distance in meters between two nodes (relatively to the Earth)
+
+	bool operator==(const Node & n) const;
+
+	bool operator!=(const Node & n) const;
+
+	friend ostream& operator<<(ostream& os, const Node& n);
 };
+
+
+
+#endif /* NODE_H_ */
