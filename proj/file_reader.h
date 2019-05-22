@@ -7,9 +7,9 @@
 #include <iostream>
 #include <regex>
 
-#include "graph.h"
-#include "node.h"
-#include "road.h"
+#include "Graph.h"
+#include "Node.h"
+#include "Road.h"
 
 using namespace std;
 

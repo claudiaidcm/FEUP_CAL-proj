@@ -1,5 +1,6 @@
-#include "treatment_station.h"
-#include "node.h"
+#include "Treatment_station.h"
+
+#include "Node.h"
 
 using namespace std;
 

@@ -5,13 +5,13 @@
 #include <string>
 #include <algorithm>
 
-#include "graph.h"
-#include "node.h"
-#include "road.h"
-#include "garbage_truck.h"
-#include "treatment_station.h"
-#include "container.h"
-#include "file_reader.h"
+#include "Container.h"
+#include "File_reader.h"
+#include "Garbage_truck.h"
+#include "Graph.h"
+#include "Node.h"
+#include "Road.h"
+#include "Treatment_station.h"
 //#include "utils.h"
 
 using namespace std;

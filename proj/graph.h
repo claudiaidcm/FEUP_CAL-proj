@@ -25,7 +25,7 @@ template <class T>
 class Vertex {
 	T info;                // contents
 	vector<Edge<T> > adj;  // outgoing edges
-	bool visited;          // auxiliary field
+	bool visited = false;          // auxiliary field
 	double dist = 0;
 	Vertex<T> *path = nullptr;
 	int queueIndex = 0; 		// required by MutablePriorityQueue
@@ -84,7 +84,7 @@ class Edge {
 	Vertex<T> * dest;      // destination vertex
 	double weight;         // edge weight
 
-	bool selected; // Fp07
+	bool selected = false; // Fp07
 
 public:
 	Edge(Vertex<T> *o, Vertex<T> *d, double w);

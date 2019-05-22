@@ -1,40 +1,37 @@
-#include "container.h"
+#include "Container.h"
 
 Container::Container():Node() {}
 
 Container::Container(string ID, float lat, float lon):Node(ID, lat, lon) {}
 
-Container::Container(string ID, float lat, float lon, bool full, float volume, char type)
-	:Node(ID, lat, lon), full(full), volume(volume), type(type) {}
+Container::Container(string ID, float lat, float lon, bool full, float capacity, char type)
+	:Node(ID, lat, lon), full(full), capacity(capacity), type(type){}
 
-Container::Container(Node n, bool full, float volume, char type):full(full), volume(volume), type(type)
+Container::Container(Node n, bool full, float capacity, char type):full(full), capacity(capacity), type(type)
 {
 	this->ID = n.getID();
 	this->lat = n.getLat();
 	this->lon = n.getLon();
 }
 
-Container & Container::setFull(bool full)
+void Container::setFull(bool full)
 {
 	this->full = full;
-	return *this;
 }
 
-Container & Container::setVolume(float volume)
+void Container::setCapacity(float capacity)
 {
-	this->volume = volume;
-	return *this;
+	this->capacity = capacity;
 }
 
-Container & Container::setType(char type)
+void Container::setType(char type)
 {
 	this->type = type;
-	return *this;
 }
 
-float Container::getVolume()
+float Container::getCapacity()
 {
-	return volume;
+	return capacity;
 }
 
 char Container::getType() const

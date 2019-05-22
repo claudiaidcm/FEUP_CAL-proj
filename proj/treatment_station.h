@@ -1,7 +1,7 @@
 #ifndef TREATMENT_STATION_H_
 #define TREATMENT_STATION_H_
 
-#include "node.h"
+#include "Node.h"
 
 class TreatmentStation: public Node{
 protected:

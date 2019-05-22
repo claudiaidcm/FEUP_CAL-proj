@@ -5,10 +5,10 @@
 #include <chrono>
 #include <iomanip>
 
-#include "file_reader.h"
-#include "graph.h"
-#include "node.h"
-#include "road.h"
+#include "File_reader.h"
+#include "Graph.h"
+#include "Node.h"
+#include "Road.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ void timeFinish(size_t countNodes, string name)
 /**
 * Best path from the garage to the station, by one container
 */
-vector<Node> singleTruckSingleContainer(CompleteGraph * cgraph, Truck * t, Container * c, Station * s) {
+/*vector<Node> singleTruckSingleContainer(CompleteGraph * cgraph, Truck * t, Container * c, Station * s) {
 	vector<Node> res;
 	vector<Vertex<Node> *> temp = cgraph->graph->getVertexSet();
 	if (temp.size() <= 3) {
@@ -58,11 +58,10 @@ vector<Node> singleTruckSingleContainer(CompleteGraph * cgraph, Truck * t, Conta
 	cout << endl;
 	cout << "TOTAL DISTANCE: " << getTotalDistance(res) << endl;
 	return res;
-}
+}*/
 
-int main() {
+int main1() {
 	srand(time(NULL));
-
 
 	return 0;
 }
