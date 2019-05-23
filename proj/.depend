@@ -1,0 +1,13 @@
+Test.o: Test.cpp File_reader.h Graph.h MutablePriorityQueue.h Node.h \
+ Road.h Process_info.h Garbage_truck.h Treatment_station.h Container.h
+Container.o: Container.cpp Container.h Node.h
+File_reader.o: File_reader.cpp File_reader.h Graph.h \
+ MutablePriorityQueue.h Node.h Road.h
+Garbage_truck.o: Garbage_truck.cpp Garbage_truck.h Node.h
+Map_creator.o: Map_creator.cpp
+Node.o: Node.cpp Node.h
+Process_info.o: Process_info.cpp Process_info.h Graph.h \
+ MutablePriorityQueue.h Node.h Road.h Garbage_truck.h Treatment_station.h \
+ Container.h
+Road.o: Road.cpp Road.h
+Treatment_station.o: Treatment_station.cpp Treatment_station.h Node.h
