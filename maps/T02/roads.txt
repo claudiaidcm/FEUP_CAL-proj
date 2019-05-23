@@ -1,0 +1,128 @@
+25498033;Avenida do Uruguai;False
+25498042;Avenida Grão Vasco;False
+25498043;Avenida Grão Vasco;False
+25498053;;False
+25498057;Rua Maestro Raul Ferrão;False
+36916640;Rua das Pedralvas;False
+37010887;Rua dos Arneiros;False
+37010888;Rua Cláudio Nunes;False
+37010889;Rua Doutor João de Barros;False
+57036245;Rua Professor Santos Lucas;False
+71218077;;False
+71541691;;False
+71541693;;False
+71541697;Rua Dom António Caetano de Sousa;False
+71541699;;False
+71541703;Estrada das Garridas;True
+71541704;Rua Doutor Pereira Bernardes;True
+71541706;;False
+71541708;;False
+88364844;Rua Emília das Neves;False
+88365093;Praceta Maestro Ivo Cruz;True
+88365102;Rua Nina Marques Pereira;True
+88365121;;True
+96122992;Rua José Marinho;True
+132032463;Avenida Gomes Pereira;True
+144843389;Rua Tomás Figueiredo;True
+144843392;Estrada de A-da-Maia;False
+144845337;;False
+144845339;;False
+154109847;Rua da República Peruana;True
+154110480;;False
+154110482;;False
+154110483;;False
+154110485;;False
+154110486;Rua do Parque;False
+154110490;;False
+154113239;Avenida Grão Vasco;False
+154146528;Rua da República Peruana;False
+154146531;;False
+154146536;Rua da República Peruana;False
+154146943;;False
+154146944;Alameda Padre Álvaro Proença;False
+154146946;;False
+154150349;Rua Maria de Lalande;True
+154150350;Rua Aura Abranches;True
+154151058;Alameda Padre Álvaro Proença;False
+154151059;Rua General Morais Sarmento;True
+154151601;Estrada de Benfica;True
+154151602;Estrada de Benfica;True
+154405112;Travessa do Açougue;True
+154405117;;True
+154406069;;True
+154407026;Alameda Padre Álvaro Proença;False
+154407037;Alameda Padre Álvaro Proença;False
+155012576;;False
+155012585;;False
+155016985;;False
+155016986;Travessa do Rio;True
+155163910;;True
+155163911;;True
+182877245;;False
+182877280;;False
+184165420;Rua Fernanda Botelho;True
+184165421;;True
+184165422;;False
+184165693;;True
+231613629;Rua Comandante Enrique Maya;True
+231613953;Rua Jorge Barradas;True
+336538854;Estrada de A-da-Maia;True
+336538868;Rua João Frederico Ludovice;True
+336538871;Rua de Nossa Senhora do Amparo;True
+336538876;;True
+336601634;Rua da República Peruana;False
+338469924;Rua Doutor Rafael Duque;False
+338469925;;False
+338469926;;False
+338469927;Rua Doutor Rafael Duque;False
+338469930;Rua Doutor Rafael Duque;False
+366800716;Avenida Gomes Pereira;True
+375556051;Calçada do Tojal;True
+386171475;Rua André Resende;True
+392174705;Estrada de Benfica;True
+412290132;Avenida Marechal Teixeira Rebelo;False
+412290134;Avenida Marechal Teixeira Rebelo;False
+413779692;Estrada de Benfica;False
+413779699;Rua Doutor José Baptista de Sousa;False
+413779703;Rua Professor Santos Lucas;False
+413779705;;False
+434295046;;False
+434295955;Rua Amélia Rey Colaço;True
+448346663;Rua Coronel Santos Pedroso;True
+448346666;;True
+448346669;;True
+463259839;Rua Doutor Rafael Duque;True
+463259840;Rua Doutor Rafael Duque;True
+464172974;Rua Augusto Costa;True
+481651683;Rua Lucília Simões;True
+540228110;Estrada de Benfica;True
+540301273;Rua João Frederico Ludovice;True
+540301274;Rua Olivério Serpa;True
+544554617;;True
+544554618;;True
+544606115;;True
+544606116;Rua Mirita Casimiro;True
+559271443;;True
+559271444;;True
+585711679;Rua Mirita Casimiro;True
+607137885;Rua Professor Santos Lucas;False
+607137886;;False
+607137887;Estrada de Benfica;False
+607138097;;False
+609032411;;False
+681527002;Estrada de Benfica;False
+681527004;Estrada de Benfica;False
+682288263;Estrada de Benfica;False
+682309719;Rua das Garridas;True
+683373635;Alameda Padre Álvaro Proença;False
+683373638;Rua do Parque;False
+683373640;Alameda Padre Álvaro Proença;False
+683374175;Alameda Padre Álvaro Proença;False
+683381240;;False
+683382105;;False
+683805470;Estrada de Benfica;False
+688226762;Avenida do Uruguai;False
+688228721;;False
+688228856;Rua da República da Bolívia;True
+688228857;Rua da República da Bolívia;False
+688228858;Rua da República da Bolívia;False
