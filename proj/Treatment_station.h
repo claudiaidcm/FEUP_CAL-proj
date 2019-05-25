@@ -2,19 +2,18 @@
 #define TREATMENT_STATION_H_
 
 #include "Node.h"
+#include "Graph.h"
 
 class TreatmentStation: public Node{
 protected:
-	char type='0'; //type of trash that is treated in a particular station
+	Vertex<Node> *node;
+	char type; //type of trash that is treated in a particular station
 public:
 	TreatmentStation();
-	TreatmentStation(Node n);
-	TreatmentStation(string ID, float lat, float lon);
-	TreatmentStation(string ID, float lat, float lon, char type);
+	TreatmentStation(Vertex<Node> * node, char type);
 
 	TreatmentStation & setType(char t);
 	char getType()const;
-	Node getNode();
 };
 
 

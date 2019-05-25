@@ -2,17 +2,8 @@
 
 Container::Container():Node() {}
 
-Container::Container(string ID, float lat, float lon):Node(ID, lat, lon) {}
-
-Container::Container(string ID, float lat, float lon, bool full, float capacity, char type)
-	:Node(ID, lat, lon), full(full), capacity(capacity), type(type){}
-
-Container::Container(Node n, bool full, float capacity, char type):full(full), capacity(capacity), type(type)
-{
-	this->ID = n.getID();
-	this->lat = n.getLat();
-	this->lon = n.getLon();
-}
+Container::Container(Vertex<Node> * node, bool full, float capacity, char type):full(full), capacity(capacity), type(type), node(node)
+{}
 
 void Container::setFull(bool full)
 {
@@ -37,11 +28,6 @@ float Container::getCapacity()
 char Container::getType() const
 {
 	return type;
-}
-
-Node Container::getNode()
-{
-	return Node(ID, lat, lon);
 }
 
 bool Container::isFull()

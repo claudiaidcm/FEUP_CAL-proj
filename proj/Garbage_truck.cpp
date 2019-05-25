@@ -14,7 +14,7 @@ void Truck::setFreeVolume(float freeVolume)
 	this->freeVolume = freeVolume;
 }
 
-void setId (int id) {
+void Truck::setId (int id) {
 	this->id= id;
 }
 

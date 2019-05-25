@@ -12,18 +12,18 @@ using namespace std;
 
 class Node {
 protected:
-	string ID;
-	double lat, lon; //id, latitude and longitude respectively
+	int id;
+	double x, y; //id, latitude and longitude respectively
 public:
 	Node();
-	Node(string ID);
-	Node(string ID, double lat, double lon);
-	Node & setLat(double lat);
-	Node & setLon(double lon);
-	Node & setID(string ID);
-	double getLat();
-	double getLon();
-	string getID();
+	Node(int id);
+	Node(int id, double x, double y);
+	void setX(double x);
+	void setY(double y);
+	void setId(int id);
+	double getX();
+	double getY();
+	int getId();
 
 	double distance(Node end); //returns the distance in meters between two nodes (relatively to the Earth)
 

@@ -1,52 +1,44 @@
 #include "Node.h"
 
-Node::Node():Node("",0,0) {}
+Node::Node():Node(0,0,0) {}
 
-Node::Node(string ID, double lat, double lon):ID(ID),lat(lat),lon(lon) {}
+Node::Node(int id, double x, double y):id(id),x(x),y(y) {}
 
-Node::Node(string ID):ID(ID) {}
+Node::Node(int id):id(id) {}
 
-Node & Node::setLat(double lat)
+void Node::setX(double x)
 {
-	this->lat = lat; return *this;
+	this->x = x;
 }
 
-Node & Node::setLon(double lon)
+void Node::setY(double y)
 {
-	this->lon = lon; return *this;
+	this->y = y;
 }
 
-Node & Node::setID(string ID)
+void Node::setId(int id)
 {
-	this->ID = ID; return *this;
+	this->id = id;
 }
 
-double Node::getLat()
+double Node::getX()
 {
-	return lat;
+	return x;
 }
 
-double Node::getLon()
+double Node::getY()
 {
-	return lon;
+	return y;
 }
 
-string Node::getID()
+int Node::getId()
 {
-	return ID;
-}
-
-double Node::distance(Node end)
-{
-	double u, v;
-	u = sin((end.lat - lat) / 2);
-	v = sin((end.lon - lon) / 2);
-	return 1000 * 2.0 * Earth_Radius * asin(sqrt(u * u + cos(lat) * cos(end.lat) * v * v));//returns the distance in meters
+	return id;
 }
 
 bool Node::operator==(const Node & n) const
 {
-	return ID == n.ID;
+	return id == n.id;
 }
 
 bool Node::operator!=(const Node & n) const
@@ -56,7 +48,7 @@ bool Node::operator!=(const Node & n) const
 
 ostream & operator<<(ostream & os, const Node & n)
 {
-	os << "{ID: " << n.ID << ", lat: " << n.lat << ", lon: " << n.lon << "}";
+	os << "{ID: " << n.id << ", x: " << n.x << ", y: " << n.x << "}";
 	return os;
 }
 
