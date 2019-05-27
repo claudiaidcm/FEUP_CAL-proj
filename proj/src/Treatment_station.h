@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "Graph.h"
 
-class TreatmentStation: public Node{
+class TreatmentStation{
 protected:
 	Vertex<Node> *node;
 	char type; //type of trash that is treated in a particular station
@@ -12,8 +12,9 @@ public:
 	TreatmentStation();
 	TreatmentStation(Vertex<Node> * node, char type);
 
-	TreatmentStation & setType(char t);
+	void setType(char t);
 	char getType()const;
+	Vertex<Node>* getNode();
 };
 
 

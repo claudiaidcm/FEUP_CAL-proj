@@ -1,6 +1,6 @@
 #include "Container.h"
 
-Container::Container():Node() {}
+Container::Container() {}
 
 Container::Container(Vertex<Node> * node, bool full, float capacity, char type):full(full), capacity(capacity), type(type), node(node)
 {}

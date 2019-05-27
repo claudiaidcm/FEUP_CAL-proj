@@ -28,6 +28,7 @@ private:
 	GraphViewer *gv;
 	vector<Container> containers;
 	vector<TreatmentStation> stations;
+	vector<Vertex<Node>*> transfer_stations;
 
 public:
 	map_creator();
@@ -35,7 +36,11 @@ public:
 	void getNodes(string nodes_file);
 	void getEdges(string edges_file);
 	void getTags(string tags_file);
-	bool isWasteBascket(int idNo);
+	bool isContainer(int idNo);
+	bool isLandFill (int idNo);
+	bool isRecyclingContainer (int idNo);
+	bool isRecyclingStation(int idNo);
+	bool isTransferStation(int idNo);
 
 };
 

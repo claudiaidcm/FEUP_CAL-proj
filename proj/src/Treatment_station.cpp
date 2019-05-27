@@ -8,11 +8,13 @@ TreatmentStation::TreatmentStation(Vertex<Node> * node, char t):node(node), type
 
 char TreatmentStation::getType()const {return type;}
 
-TreatmentStation & TreatmentStation::setType(char t){
+void TreatmentStation::setType(char t){
 	this->type = t;
-	return *this;
 }
 
+Vertex<Node>* TreatmentStation::getNode() {
+	return this->node;
+}
 
 
 

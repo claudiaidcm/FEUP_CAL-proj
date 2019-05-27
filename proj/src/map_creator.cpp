@@ -141,7 +141,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream1(line);
+
+			linestream1 >> n;
 
 			//amenity=recycling
 			while (n > 0) {
@@ -153,24 +155,27 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream2(line);
 
-			//waste baskets
+			linestream2 >> n;
+
+			//waste disposals
 			while (n > 0) {
 				getline(file, line);
 				stringstream linestream(line);
 				double id_node;
-
 				linestream >> id_node;
 
 				Vertex<Node> *vert = NULL;
 
-				for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
-					if (id_node
-							== graph.getVertexSet().at(i)->getInfo().getId()) {
-						vert = graph.getVertexSet().at(i);
+				double aux = 0;
+				for (unsigned int j = 0; j < graph.getVertexSet().size(); j++) {
+					aux = graph.getVertexSet().at(j)->getInfo().getId();
+					if (id_node == aux) {
+						vert = graph.getVertexSet().at(j);
 						break;
 					}
+
 				}
 
 				Container cont = Container(vert, false, 100, 'n');
@@ -182,7 +187,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream3(line);
+
+			linestream3 >> n;
 
 			//bin = *
 			while (n > 0) {
@@ -191,6 +198,12 @@ void map_creator::getTags(string tags_file) {
 			}
 
 			tags_number--;
+
+			getline(file, line);
+			getline(file, line);
+			stringstream linestream4(line);
+
+			linestream4 >> n;
 
 			//landuse = landfill
 			while (n > 0) {
@@ -202,12 +215,14 @@ void map_creator::getTags(string tags_file) {
 
 				Vertex<Node> *vert = NULL;
 
-				for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
-					if (id_node
-							== graph.getVertexSet().at(i)->getInfo().getId()) {
-						vert = graph.getVertexSet().at(i);
+				double aux = 0;
+				for (unsigned int j = 0; j < graph.getVertexSet().size(); j++) {
+					aux = graph.getVertexSet().at(j)->getInfo().getId();
+					if (id_node == aux) {
+						vert = graph.getVertexSet().at(j);
 						break;
 					}
+
 				}
 
 				TreatmentStation station = TreatmentStation(vert, 'n');
@@ -219,7 +234,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream5(line);
+
+			linestream5 >> n;
 
 			//recycling containers
 			while (n > 0) {
@@ -231,12 +248,14 @@ void map_creator::getTags(string tags_file) {
 
 				Vertex<Node> *vert = NULL;
 
-				for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
-					if (id_node
-							== graph.getVertexSet().at(i)->getInfo().getId()) {
-						vert = graph.getVertexSet().at(i);
+				double aux = 0;
+				for (unsigned int j = 0; j < graph.getVertexSet().size(); j++) {
+					aux = graph.getVertexSet().at(j)->getInfo().getId();
+					if (id_node == aux) {
+						vert = graph.getVertexSet().at(j);
 						break;
 					}
+
 				}
 
 				Container cont = Container(vert, false, 100, 'r');
@@ -248,7 +267,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream6(line);
+
+			linestream6 >> n;
 
 			//recycling stations
 			while (n > 0) {
@@ -277,11 +298,29 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream7(line);
+
+			linestream7 >> n;
 
 			//waste transfer station
 			while (n > 0) {
 				getline(file, line);
+				stringstream linestream(line);
+				double id_node;
+
+				linestream >> id_node;
+
+				Vertex<Node> *vert = NULL;
+
+				for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
+					if (id_node
+							== graph.getVertexSet().at(i)->getInfo().getId()) {
+						vert = graph.getVertexSet().at(i);
+						break;
+					}
+				}
+
+				transfer_stations.push_back(vert);
 				n--;
 			}
 
@@ -289,7 +328,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
-			linestream >> n;
+			stringstream linestream8(line);
+
+			linestream8 >> n;
 
 			//waste = *
 			while (n > 0) {
@@ -324,9 +365,26 @@ void map_creator::showGraph() {
 
 		gv->addNode(idNo, x - origin.getX(), y - origin.getY());
 
-		if (isWasteBascket(idNo)) {
+		if (isContainer(idNo)) {
 			gv->setVertexColor(idNo, "BLUE");
 		}
+
+		if (isLandFill(idNo)) {
+			gv->setVertexColor(idNo, "RED");
+		}
+
+		if (isRecyclingContainer(idNo)) {
+			gv->setVertexColor(idNo, "GREEN");
+		}
+
+		if (isRecyclingStation(idNo)) {
+			gv->setVertexColor(idNo, "MAGENTA");
+		}
+
+		if (isTransferStation(idNo)) {
+					gv->setVertexColor(idNo, "CYAN");
+		}
+
 	}
 
 	for (unsigned int i = 0; i < info.size(); i++) {
@@ -349,14 +407,51 @@ void map_creator::showGraph() {
 	getchar();
 }
 
-bool map_creator::isWasteBascket(int idNo) {
+bool map_creator::isContainer(int idNo) {
 	for (unsigned int i = 0; i < containers.size(); i++) {
-		if (containers.at(i).getId() == idNo)
-			if (containers.at(i).getCapacity() == 10)
-				if (containers.at(i).getType() == 'n') {
-					return true;
-				}
+		if (containers.at(i).getNode()->getInfo().getId() == idNo)
+			if (containers.at(i).getType() == 'n')
+				return true;
+	}
 
+	return false;
+}
+
+bool map_creator::isLandFill(int idNo) {
+	for (unsigned int i = 0; i < stations.size(); i++) {
+		if (stations.at(i).getNode()->getInfo().getId() == idNo)
+			if (stations.at(i).getType() == 'n')
+				return true;
+	}
+
+	return false;
+}
+
+bool map_creator::isRecyclingContainer(int idNo) {
+	for (unsigned int i = 0; i < containers.size(); i++) {
+		if (containers.at(i).getNode()->getInfo().getId() == idNo)
+			if (containers.at(i).getType() == 'r')
+				return true;
+	}
+
+	return false;
+}
+
+bool map_creator::isRecyclingStation(int idNo) {
+	for (unsigned int i = 0; i < stations.size(); i++) {
+		if (stations.at(i).getNode()->getInfo().getId() == idNo)
+			if (stations.at(i).getType() == 'r')
+				return true;
+	}
+
+	return false;
+}
+
+
+bool map_creator::isTransferStation(int idNo) {
+	for (unsigned int i = 0; i < transfer_stations.size(); i++) {
+		if (transfer_stations.at(i)->getInfo().getId() == idNo)
+				return true;
 	}
 
 	return false;

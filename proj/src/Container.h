@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "Graph.h"
 
-class Container: public Node {
+class Container {
 
 private:
 	Vertex<Node> *node;
