@@ -9,7 +9,7 @@ class Container: public Node {
 private:
 	Vertex<Node> *node;
 	bool full = false; //indicates  whether the container is full or not
-	float capacity = 0; //container maximum capacity
+	float capacity; //container maximum capacity
 	char type; //type of trash disposed to this container
 
 public:

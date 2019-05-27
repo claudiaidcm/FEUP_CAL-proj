@@ -3,7 +3,7 @@
 using namespace std;
 
 map_creator::map_creator() {
-	gv = new GraphViewer(1000, 1000, false);
+	gv = new GraphViewer(800, 800, false);
 }
 
 void map_creator::getNodes(string nodes_file) {
@@ -29,7 +29,7 @@ void map_creator::getNodes(string nodes_file) {
 			getline(linestream, line, ' ');
 			linestream >> y;
 
-			Node node = Node(idNode, x/2, y/2);
+			Node node = Node(idNode, x, y);
 			nodes.push_back(node);
 			graph.addVertex(node);
 		}
@@ -108,7 +108,9 @@ void map_creator::getTags(string tags_file) {
 
 			getline(file, line);
 			getline(file, line);
+			stringstream linestream(line);
 			int n;
+
 			linestream >> n;
 
 			//waste baskets
@@ -116,17 +118,18 @@ void map_creator::getTags(string tags_file) {
 				getline(file, line);
 				stringstream linestream(line);
 				double id_node;
-
 				linestream >> id_node;
 
 				Vertex<Node> *vert = NULL;
 
-				for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
-					if (id_node
-							== graph.getVertexSet().at(i)->getInfo().getId()) {
-						vert = graph.getVertexSet().at(i);
+				double aux = 0;
+				for (unsigned int j = 0; j < graph.getVertexSet().size(); j++) {
+					aux = graph.getVertexSet().at(j)->getInfo().getId();
+					if (id_node == aux) {
+						vert = graph.getVertexSet().at(j);
 						break;
 					}
+
 				}
 
 				Container cont = Container(vert, false, 10, 'n');
@@ -140,13 +143,17 @@ void map_creator::getTags(string tags_file) {
 			getline(file, line);
 			linestream >> n;
 
-			//don't know (amenity=recycling)
+			//amenity=recycling
 			while (n > 0) {
 				getline(file, line);
 				n--;
 			}
 
 			tags_number--;
+
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
 
 			//waste baskets
 			while (n > 0) {
@@ -173,7 +180,11 @@ void map_creator::getTags(string tags_file) {
 
 			tags_number--;
 
-			//don't know (bin = *)
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
+
+			//bin = *
 			while (n > 0) {
 				getline(file, line);
 				n--;
@@ -206,6 +217,10 @@ void map_creator::getTags(string tags_file) {
 
 			tags_number--;
 
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
+
 			//recycling containers
 			while (n > 0) {
 				getline(file, line);
@@ -230,6 +245,10 @@ void map_creator::getTags(string tags_file) {
 			}
 
 			tags_number--;
+
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
 
 			//recycling stations
 			while (n > 0) {
@@ -256,7 +275,11 @@ void map_creator::getTags(string tags_file) {
 
 			tags_number--;
 
-			//don't know (waste transfer station)
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
+
+			//waste transfer station
 			while (n > 0) {
 				getline(file, line);
 				n--;
@@ -264,7 +287,11 @@ void map_creator::getTags(string tags_file) {
 
 			tags_number--;
 
-			//don't know (waste = *)
+			getline(file, line);
+			getline(file, line);
+			linestream >> n;
+
+			//waste = *
 			while (n > 0) {
 				getline(file, line);
 				n--;
@@ -296,6 +323,10 @@ void map_creator::showGraph() {
 		int y = point.getY();
 
 		gv->addNode(idNo, x - origin.getX(), y - origin.getY());
+
+		if (isWasteBascket(idNo)) {
+			gv->setVertexColor(idNo, "BLUE");
+		}
 	}
 
 	for (unsigned int i = 0; i < info.size(); i++) {
@@ -308,7 +339,8 @@ void map_creator::showGraph() {
 
 			int idNo_end = adj.at(j).getNode()->getInfo().getId();
 
-			gv->addEdge(100*idNo_begin+idNo_end, idNo_begin, idNo_end, EdgeType::DIRECTED);
+			gv->addEdge(100 * idNo_begin + idNo_end, idNo_begin, idNo_end,
+					EdgeType::DIRECTED);
 		}
 	}
 
@@ -318,5 +350,14 @@ void map_creator::showGraph() {
 }
 
 bool map_creator::isWasteBascket(int idNo) {
-	return true;
+	for (unsigned int i = 0; i < containers.size(); i++) {
+		if (containers.at(i).getId() == idNo)
+			if (containers.at(i).getCapacity() == 10)
+				if (containers.at(i).getType() == 'n') {
+					return true;
+				}
+
+	}
+
+	return false;
 }

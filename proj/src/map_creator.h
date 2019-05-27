@@ -24,6 +24,7 @@ class map_creator {
 private:
 	Graph<Node> graph;
 	vector<Node> nodes;
+	vector<Road> roads;
 	GraphViewer *gv;
 	vector<Container> containers;
 	vector<TreatmentStation> stations;

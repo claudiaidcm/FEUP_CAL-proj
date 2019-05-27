@@ -5,21 +5,19 @@
 #include <vector>
 #include <ostream>
 
+#include "Node.h"
+#include "Graph.h"
+
 using namespace std;
 
 class Road {
 public:
-	string ID;
-	string name;
-	bool bothWays; //if the road goes bothways or not
+	string id;
+	bool bothWays;
+	vector<Vertex<Node>*> form;
 
 	Road();
-	Road(string ID, string name, bool bothWays);
-	friend ostream& operator<<(ostream& os, const Road& r);
-	static Road * findRoadByID(vector<Road *> roads, string ID);
+	Road(string id, bool bothWays, vector<Vertex<Node>*> form);
 };
-
-
-
 
 #endif /* ROAD_H_ */

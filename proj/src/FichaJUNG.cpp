@@ -11,9 +11,10 @@ int main() {
 
 	init.getNodes("T02_nodes_X_Y_Aveiro.txt");
 	init.getEdges("T02_edges_Aveiro.txt");
-	//init.getTags("T02_tags_Aveiro.txt");
+	init.getTags("T02_tags_Aveiro.txt");
 
 	init.showGraph();
+
 
 	return 0;
 }
