@@ -13,6 +13,7 @@ private:
 	char type; //type of trash disposed to this container
 
 public:
+
 	Container();
 	Container(Vertex<Node> * node, bool full, float capacity, char type);
 

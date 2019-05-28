@@ -1,12 +1,7 @@
 #include "Garbage_truck.h"
 
-Truck::Truck(){}
-
-Truck::Truck(Node central, float capacity, char type):central(central),capacity(capacity),type(type) {}
-
-void Truck::setCentral(Node central)
-{
-	this->central = central;
+Truck::Truck(double centralId, float capacity, char type):centralId(centralId),capacity(capacity),type(type) {
+	freeVolume = capacity;
 }
 
 void Truck::setFreeVolume(float freeVolume)
@@ -14,28 +9,23 @@ void Truck::setFreeVolume(float freeVolume)
 	this->freeVolume = freeVolume;
 }
 
-void Truck::setId (int id) {
-	this->id= id;
-}
-
 void Truck::setType(char type)
 {
 	this->type = type;
 }
 
-Node Truck::getCentral()
+float Truck::getCapacity() {
+	return capacity;
+}
+
+double Truck::getCentralId()
 {
-	return central;
+	return centralId;
 }
 
 float Truck::getFreeVolume()
 {
 	return freeVolume;
-}
-
-int Truck::getId()
-{
-	return id;
 }
 
 char Truck::getType() const

@@ -132,7 +132,7 @@ void map_creator::getTags(string tags_file) {
 
 				}
 
-				Container cont = Container(vert, false, 10, 'n');
+				Container cont = Container(vert, true, 10, 'n');
 				containers.push_back(cont);
 				n--;
 			}
@@ -178,7 +178,7 @@ void map_creator::getTags(string tags_file) {
 
 				}
 
-				Container cont = Container(vert, false, 100, 'n');
+				Container cont = Container(vert, true, 100, 'n');
 				containers.push_back(cont);
 				n--;
 			}
@@ -226,7 +226,7 @@ void map_creator::getTags(string tags_file) {
 				}
 
 				TreatmentStation station = TreatmentStation(vert, 'n');
-				stations.push_back(station);
+				treatment_stations.push_back(station);
 				n--;
 			}
 
@@ -258,7 +258,7 @@ void map_creator::getTags(string tags_file) {
 
 				}
 
-				Container cont = Container(vert, false, 100, 'r');
+				Container cont = Container(vert, true, 100, 'r');
 				containers.push_back(cont);
 				n--;
 			}
@@ -290,7 +290,7 @@ void map_creator::getTags(string tags_file) {
 				}
 
 				TreatmentStation station = TreatmentStation(vert, 'r');
-				stations.push_back(station);
+				treatment_stations.push_back(station);
 				n--;
 			}
 
@@ -382,7 +382,7 @@ void map_creator::showGraph() {
 		}
 
 		if (isTransferStation(idNo)) {
-					gv->setVertexColor(idNo, "CYAN");
+			gv->setVertexColor(idNo, "CYAN");
 		}
 
 	}
@@ -403,8 +403,32 @@ void map_creator::showGraph() {
 	}
 
 	gv->rearrange();
+}
 
-	getchar();
+void map_creator::drawPath(vector<Node> path) {
+	for (size_t i = 0; i < path.size() - 1; i++) {
+		int id = 100 * path.at(i).getId() + path.at(i + 1).getId();
+
+		gv->setEdgeThickness(id, 4);
+		gv->setEdgeColor(id, "YELLOW");
+	}
+
+	gv->setVertexColor(path.at(0).getId(), "BLACK");
+	gv->rearrange();
+}
+
+Node map_creator::getNodeByID(int id) {
+
+	Node node;
+
+	for (unsigned int i = 0; i < graph.getVertexSet().size(); i++) {
+		if (graph.getVertexSet().at(i)->getInfo().getId() == id) {
+			node = graph.getVertexSet().at(i)->getInfo();
+		}
+	}
+
+	return node;
+
 }
 
 bool map_creator::isContainer(int idNo) {
@@ -418,9 +442,9 @@ bool map_creator::isContainer(int idNo) {
 }
 
 bool map_creator::isLandFill(int idNo) {
-	for (unsigned int i = 0; i < stations.size(); i++) {
-		if (stations.at(i).getNode()->getInfo().getId() == idNo)
-			if (stations.at(i).getType() == 'n')
+	for (unsigned int i = 0; i < treatment_stations.size(); i++) {
+		if (treatment_stations.at(i).getNode()->getInfo().getId() == idNo)
+			if (treatment_stations.at(i).getType() == 'n')
 				return true;
 	}
 
@@ -438,21 +462,131 @@ bool map_creator::isRecyclingContainer(int idNo) {
 }
 
 bool map_creator::isRecyclingStation(int idNo) {
-	for (unsigned int i = 0; i < stations.size(); i++) {
-		if (stations.at(i).getNode()->getInfo().getId() == idNo)
-			if (stations.at(i).getType() == 'r')
+	for (unsigned int i = 0; i < treatment_stations.size(); i++) {
+		if (treatment_stations.at(i).getNode()->getInfo().getId() == idNo)
+			if (treatment_stations.at(i).getType() == 'r')
 				return true;
 	}
 
 	return false;
 }
 
-
 bool map_creator::isTransferStation(int idNo) {
 	for (unsigned int i = 0; i < transfer_stations.size(); i++) {
 		if (transfer_stations.at(i)->getInfo().getId() == idNo)
-				return true;
+			return true;
 	}
 
 	return false;
+}
+
+Node map_creator::closestTreatmentStation(double id, char type) {
+	Node node = getNodeByID(id);
+	int distMinima = INF;
+	int pos = -1;
+
+	for (unsigned int i = 0; i < treatment_stations.size(); i++) {
+		if (treatment_stations.at(i).getType() == type) {
+			graph.dijkstraShortestPath(
+					treatment_stations.at(i).getNode()->getInfo()); //faz dijkstra para a bomba analisada
+
+			int distAtual = graph.getVertex(node)->getDist(); //distancia da bomba analisada ate ao node
+
+			if (distAtual <= distMinima) { //se distancia atual menor que a distancia guardada
+				pos = i; //atualiza posicao
+				distMinima = distAtual; //atualiza distancia guardada
+			}
+		}
+	}
+
+	return containers.at(pos).getNode()->getInfo();
+}
+
+Node map_creator::closestContainer(double id, char type,
+		vector<Container> *aux) {
+	Node node = getNodeByID(id);
+	int distMinima = INF;
+	int pos = -1;
+	Node res;
+
+	for (unsigned int i = 0; i < aux->size(); i++) {
+		if ((aux->at(i).getType() == type) && (aux->at(i).isFull() == true)
+				&& (aux->at(i).getNode()->getInfo().getId() != id)) {
+			graph.dijkstraShortestPath(aux->at(i).getNode()->getInfo()); //faz dijkstra para a bomba analisada
+
+			int distAtual = graph.getVertex(node)->getDist(); //distancia da bomba analisada ate ao node
+
+			if (distAtual <= distMinima) { //se distancia atual menor que a distancia guardada
+				pos = i; //atualiza posicao
+				distMinima = distAtual; //atualiza distancia guardada
+			}
+		}
+	}
+
+	res = aux->at(pos).getNode()->getInfo();
+	aux->erase(aux->begin() + pos);
+
+	return res;
+}
+
+Container map_creator::searchContainer(double id) {
+	for (unsigned int i = 0; i < containers.size(); i++) {
+		if (containers.at(i).getNode()->getInfo().getId() == id)
+			return containers.at(i);
+	}
+}
+
+vector<Node> map_creator::getBestPath(char type, double idBegin) {
+
+	cout << "Started searching...\n";
+
+	Node node;
+	double src = 0;
+	vector<Node> passed;
+	vector<Container> aux = containers;
+
+	passed.push_back(getNodeByID(idBegin));
+
+	high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
+	for (size_t i = 0; i < trucks.size(); i++) {
+		Truck first = trucks[0];
+		if (aux.size() != 0) {
+			node = closestContainer(idBegin, type, &aux);
+			Container cont = searchContainer(node.getId());
+
+			while (first.getFreeVolume() > 0
+					&& first.getFreeVolume() >= cont.getCapacity()
+					&& cont.isFull()) {
+				src = node.getId();
+				cont.setFull(false);
+				first.setFreeVolume(first.getFreeVolume() - cont.getCapacity());
+				passed.push_back(node);
+				cout << "Visiting container in node: " << node.getId() << endl;
+				node = closestContainer(src, type, &aux);
+				cont = searchContainer(node.getId());
+			}
+
+			node = closestTreatmentStation(src, type);
+			cout << "Ending in closest treatment station in node: "
+					<< node.getId() << endl;
+			passed.push_back(node);
+
+			for (size_t i = 0; i < passed.size(); i++) {
+				cout << passed.at(i).getId() << ">>";
+			}
+
+			drawPath(passed);
+
+			cout << endl << endl;
+
+			passed.erase(passed.begin() + 1,
+					passed.begin() + passed.size() - 1);
+		}
+
+		high_resolution_clock::time_point t2 = high_resolution_clock::now();
+		auto duration = duration_cast < microseconds > (t2 - t1).count();
+	}
+
+	return passed;
 }

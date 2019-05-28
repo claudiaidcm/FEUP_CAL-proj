@@ -1,9 +1,12 @@
 #include "Container.h"
 
-Container::Container() {}
-
-Container::Container(Vertex<Node> * node, bool full, float capacity, char type):full(full), capacity(capacity), type(type), node(node)
-{}
+Container::Container(Vertex<Node> * node, bool full, float capacity, char type)
+{
+	this->type = type;
+	this->capacity = capacity;
+	this->full = full;
+	this->node = node;
+}
 
 void Container::setFull(bool full)
 {

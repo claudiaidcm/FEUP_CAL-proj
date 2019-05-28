@@ -4,27 +4,22 @@
 #include "Node.h"
 
 class Truck{
-	int id;
-	Node central;
+	int centralId;
 	bool full = false;//indicates whether the truck is full or not
-	float capacity = 0;
-	float freeVolume = 0;
+	float capacity;
+	float freeVolume;
 	char type = '0'; //residue type
 
 public:
-	Truck();
-	Truck(Node central, float capacity, char type);
+	Truck(double centralId, float capacity, char type);
 
-	void setId(int id);
-	void setCentral(Node central);
 	void setFreeVolume(float volume);
 	void setType(char type);
 	void setCapacity(float capacity);
 	void setFull(bool full);
 
-	int getId();
+	double getCentralId();
 	float getCapacity();
-	Node getCentral();
 	float getFreeVolume();
 	char getType()const;
 
