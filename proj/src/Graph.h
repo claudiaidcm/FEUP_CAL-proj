@@ -9,11 +9,17 @@
 #include <queue>
 #include <list>
 #include <climits>
+#include <algorithm>
 #include <cmath>
+
+#include "MutablePriorityQueue.h"
+
 using namespace std;
 
 template<class T> class Edge;
 template<class T> class Graph;
+
+#define INF std::numeric_limits<double>::max()
 
 /*
  * Class Vertex
@@ -151,6 +157,8 @@ public:
 	vector<Vertex<T> *> getVertexSet() const;
 	int getNumVertex() const;
 	Vertex<T>* getVertex(const T &v) const;
+
+	void dijkstraShortestPath(const T &s);
 };
 
 template<class T>
@@ -258,6 +266,25 @@ Vertex<T>* Graph<T>::getVertex(const T &v) const {
 		if (vertexSet[i]->info == v)
 			return vertexSet[i];
 	return NULL;
+}
+
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &origin) {
+	auto s = initSingleSource(origin);
+	MutablePriorityQueue<Vertex<T>> q;
+	q.insert(s);
+	while( ! q.empty() ) {
+		auto v = q.extractMin();
+		for(auto e : v->adj) {
+			auto oldDist = e.dest->dist;
+			if (relax(v, e.dest, e.weight)) {
+				if (oldDist == INF)
+					q.insert(e.dest);
+				else
+					q.decreaseKey(e.dest);
+			}
+		}
+	}
 }
 
 
